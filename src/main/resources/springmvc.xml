@@ -13,7 +13,31 @@
       http://www.springframework.org/schema/aop 
       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
-	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
-	<bean name="/hello.do" class="controller.UserController"></bean>
+	<bean
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
+
+	<!-- 简单处理器映射器： 把Url进行集中配置 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/abc.do">controller</prop>
+				<prop key="/ss.do">http</prop>
+				<prop key="/mine.do">controller</prop>
+			</props>
+		</property>
+
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"></bean>
+	<bean
+		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
+
+	<!-- HttpRequestHandlerAdapter负责执行实现接口HttpRequestHandler的后端 控制器。 -->
+	<bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"></bean>
+	
+	
+	<bean id="controller" name="/hello.do" class="controller.UserController"></bean>
+	<!-- 配置自定义HttpController -->
+	<bean id="http" class="controller.HttpController"></bean>
 </beans>	
